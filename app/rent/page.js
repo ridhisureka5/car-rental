@@ -149,10 +149,9 @@ export default function Rent() {
     // Add more car objects with unique images and costs here
   ];
 
-
   return (
-    <div className="bg-gray-100 min-h-screen p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Available Cars</h1>
+    <div className="bg-slate-900 min-h-screen p-6">
+      <h1 className="text-5xl font-bold mb-6 text-center text-white">Available Cars</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((car) => (
           <ProductCard key={car.id} {...car} />
@@ -173,15 +172,15 @@ function ProductCard({ title, description, image, cost }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+    <div className="bg-slate-800 p-6 rounded-lg shadow hover:shadow-md transition">
       <img
         src={image}
         alt={title}
-        className="w-full h-40 object-cover rounded-md mb-4"
+        className="w-full h-40 object-cover rounded-md mb-4 "
       />
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-2">{description}</p>
-      <p className="text-blue-600 font-bold mb-4">{cost} ETH</p>
+      <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
+      <p className="text-slate-400 mb-2">{description}</p>
+      <p className="text-green-500 font-bold mb-4">{cost} ETH</p>
 
       <div className="flex items-center mb-4">
         <input
@@ -191,7 +190,7 @@ function ProductCard({ title, description, image, cost }) {
           checked={timeLocked}
           onChange={() => setTimeLocked(!timeLocked)}
         />
-        <label htmlFor={`timeLocked-${title}`} className="text-sm text-gray-700">
+        <label htmlFor={`timeLocked-${title}`} className=" hover:bg-blue-600 text-sm text-white">
           Enable Time-Locked Control
         </label>
       </div>

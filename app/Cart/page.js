@@ -157,8 +157,8 @@ export default function CartPage() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center">Your Cart</h1>
+    <div className="p-6 bg-slate-900 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-center text-white">Your Cart</h1>
 
       {cartItems.length === 0 ? (
         <p className="text-center text-gray-600">Your cart is empty.</p>
@@ -167,24 +167,24 @@ export default function CartPage() {
           {cartItems.map((item, index) => (
             <div
               key={index}
-              className="bg-white p-4 rounded shadow flex flex-col gap-2"
+              className="bg-slate-800 shadow p-4 rounded shadow flex flex-col gap-2 border border-slate-700"
             >
-              <h2 className="text-xl font-semibold">{item.title}</h2>
-              <p className="text-gray-600">Rate: {item.cost} ETH/hr</p>
-              <p className="text-sm text-gray-500">
+              <h2 className=" text-white text-xl font-semibold">{item.title}</h2>
+              <p className="text-white">Rate: {item.cost} ETH/hr</p>
+              <p className="text-sm text-slate-400">
                 Time-Locked: {item.timeLocked ? "Yes" : "No"}
               </p>
 
               {/* Quantity Control (Increase/Decrease Hours) */}
               <div className="flex items-center gap-2">
-                <label className="text-sm font-medium">Rental Duration:</label>
+                <label className="text-sm font-medium text-white">Rental Duration:</label>
                 <button
                   className="px-2 py-1 bg-gray-200 rounded"
                   onClick={() => updateHours(index, (item.hours || 1) - 1)}
                 >
                   -
                 </button>
-                <span className="px-2">{item.hours || 1} hrs</span>
+                <span className="px-2 text-white">{item.hours || 1} hrs</span>
                 <button
                   className="px-2 py-1 bg-gray-200 rounded"
                   onClick={() => updateHours(index, (item.hours || 1) + 1)}
@@ -194,14 +194,14 @@ export default function CartPage() {
               </div>
 
               {/* Subtotal */}
-              <div className="text-right text-blue-700 font-semibold">
+              <div className="text-right text-emerald-400 font-semibold font-semibold">
                 Subtotal: {(item.cost * (item.hours || 1)).toFixed(2)} ETH
               </div>
 
               {/* Remove */}
               <button
                 onClick={() => removeItem(index)}
-                className="text-red-500 hover:underline text-sm mt-2 self-end"
+                className="text-red-500 hover:underline red-600 text-sm mt-2 self-end"
               >
                 Remove
               </button>

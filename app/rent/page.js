@@ -18,7 +18,7 @@ export default function Rent() {
       title: "Car Model 2",
       description: "Luxury car with modern amenities.",
       image: "/images/car2.jpg", // Unique image for car 2
-      cost: "0.12", // Unique cost for car 2
+      cost: "0.002", // Unique cost for car 2
     },
     {
       id: 3,

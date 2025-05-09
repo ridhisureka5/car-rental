@@ -3,6 +3,7 @@ import { useCart } from "./CartContext";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 
+
 export default function CartPage() {
   const { cartItems, setCartItems } = useCart();
   const [loading, setLoading] = useState(false);
@@ -85,38 +86,50 @@ export default function CartPage() {
       alert("Please install MetaMask.");
       return;
     }
-
+  
     const web3 = new Web3(window.ethereum);
     await window.ethereum.request({ method: "eth_requestAccounts" });
     const accounts = await web3.eth.getAccounts();
     const userAddress = accounts[0];
-
+  
     const contract = new web3.eth.Contract(abi, contractAddress);
-
+  
     try {
+      // 1. Send payment transaction via MetaMask
+      console.log("Transaction params:", {
+        from: userAddress,
+        value: web3.utils.toWei(total.toString(), "ether"),
+      });
       const tx = await contract.methods.payForRental().send({
         from: userAddress,
         value: web3.utils.toWei(total.toString(), "ether"),
       });
-
-      // POST to Flask to log payment
-      await fetch("http://localhost:3001/pay", {
+      console.log("Transaction successful:", tx);
+    
+      // 2. Log the transaction manually to Flask backend
+      const response = await fetch("http://127.0.0.1:3000/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          carId: "cart", // Or any identifier you want
+          from: userAddress,
+          to: contractAddress,
           amount: total,
-          userAddress,
-          txHash: tx.transactionHash,
+          tx_hash: tx.transactionHash,
         }),
       });
-
-      alert("Payment successful!");
-    } catch (err) {
-      console.error(err);
-      alert("Payment failed.");
+      const result = await response.json();
+      if (response.ok) {
+        alert("Payment successful and logged!");
+      } else {
+        console.error("Server error:", result.message);
+        alert(`Payment failed: ${result.message}`);
+      }
+    }catch (err) {
+      console.error("Payment failed:", err);
+      alert("Payment failed. Check console.");
     }
   };
+  
 
   const handleWithdraw = async () => {
     if (typeof window.ethereum === "undefined") {

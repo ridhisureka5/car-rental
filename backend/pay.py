@@ -3,12 +3,14 @@ from pymongo import MongoClient
 from web3 import Web3
 from datetime import datetime
 from flask_cors import CORS
-
+import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
+
 # MongoDB connection
-client = MongoClient("mongodb://localhost:27017/")
+MONGO_URI=os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client["car-rentals"]
 payments = db["payments"]
 

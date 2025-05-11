@@ -1,13 +1,28 @@
 // Add the "use client" directive at the top
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from 'next/navigation';
+
 import Header from "./Header";
 
 export default function Home() {
   const router = useRouter();
   const [walletAddress, setWalletAddress] = useState("");
+  const [loading, setLoading] = useState(true); 
+
+useEffect(() => {
+    const isAuthenticated = localStorage.getItem('authenticated');
+    if (!isAuthenticated) {
+      router.push('/login');
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <div className="text-white p-10">Loading...</div>;
+
+
 
   const Rentpage = () => {
     router.push('/rent'); // Navigate to Rent page

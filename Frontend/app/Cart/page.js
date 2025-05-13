@@ -107,7 +107,7 @@ export default function CartPage() {
       console.log("Transaction successful:", tx);
     
       // 2. Log the transaction manually to Flask backend
-      const response = await fetch("http://127.0.0.1:3000/log", {
+      const response = await fetch("https://flask-backend-rentx.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
